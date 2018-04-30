@@ -1,6 +1,8 @@
 #include<vector>
-#include <cstdlib>
+#include<cstdlib>
 #include"rectangle.h"
+
+using namespace std;
 
 class MaxRectsBinPack
 {
@@ -8,15 +10,9 @@ public:
 	// Instantiates a bin of size (0,0). Call Init to create a new bin.
 	MaxRectsBinPack();
 
-	/* Instantiates a bin of the given size.
-	 * @param allowFlip Specifies whether the packing algorithm is allowed to 
-         * rotate the input rectangles by 90 degrees to consider a better placement.
-         */
 	MaxRectsBinPack(int width, int height, bool allowFlip = true);
 
-	/* (Re)initializes the packer to an empty bin of width x height units. Call whenever
-	 * you need to restart with a new bin.
-         */
+	// Initializes the packer to an empty bin of width x height units
 	void Init(int width, int height, bool allowFlip = true);
 
 	// Specifies the different heuristic rules that can be used when deciding where to place a new rectangle.
@@ -30,9 +26,9 @@ public:
 	};
 
 	/* Inserts the given list of rectangles in an offline/batch mode, possibly rotated.
-	 * @param rects The list of rectangles to insert. This vector will be destroyed in the process.
-	 * @param dst [out] This list will contain the packed rectangles. The indices will not correspond to that of rects.
-	 * @param method The rectangle placement rule to use when packing.
+	 * param rects The list of rectangles to insert. This vector will be destroyed in the process.
+	 * param dst [out] This list will contain the packed rectangles. The indices will not correspond to that of rects.
+	 * param method The rectangle placement rule to use when packing.
          */
 	void Insert(std::vector<RectSize> &rects, std::vector<Rect> &dst, FreeRectChoiceHeuristic method);
 
@@ -48,13 +44,13 @@ private:
 
 	bool binAllowFlip;
 
-	std::vector<Rect> usedRectangles;
-	std::vector<Rect> freeRectangles;
+	vector<Rect> usedRectangles;
+	vector<Rect> freeRectangles;
 
 	/* Computes the placement score for placing the given rectangle with the given method.
-	 * @param score1 [out] The primary placement score will be outputted here.
-	 * @param score2 [out] The secondary placement score will be outputted here. This isu sed to break ties.
-	 * @return This struct identifies where the rectangle would be placed if it were placed.
+	 * param score1 [out] The primary placement score will be outputted here.
+	 * param score2 [out] The secondary placement score will be outputted here. This isu sed to break ties.
+	 * return This struct identifies where the rectangle would be placed if it were placed.
          */
 	Rect ScoreRect(int width, int height, FreeRectChoiceHeuristic method, int &score1, int &score2) const;
 
@@ -70,7 +66,7 @@ private:
 	Rect FindPositionForNewNodeBestAreaFit(int width, int height, int &bestAreaFit, int &bestShortSideFit) const;
 	Rect FindPositionForNewNodeContactPoint(int width, int height, int &contactScore) const;
 
-	// @return True if the free node was split.
+	// return True if the free node was split.
 	bool SplitFreeNode(Rect freeNode, const Rect &usedNode);
 
 	// Goes through the free rectangle list and removes any redundant entries.
