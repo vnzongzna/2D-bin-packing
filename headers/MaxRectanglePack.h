@@ -47,13 +47,6 @@ private:
 	vector<Rect> usedRectangles;
 	vector<Rect> freeRectangles;
 
-	/* Computes the placement score for placing the given rectangle with the given method.
-	 * param score1 [out] The primary placement score will be outputted here.
-	 * param score2 [out] The secondary placement score will be outputted here. This isu sed to break ties.
-	 * return This struct identifies where the rectangle would be placed if it were placed.
-         */
-	Rect ScoreRect(int width, int height, FreeRectChoiceHeuristic method, int &score1, int &score2) const;
-
 	// Places the given rectangle into the bin.
 	void PlaceRect(const Rect &node);
 
@@ -67,8 +60,8 @@ private:
 	Rect FindPositionForNewNodeContactPoint(int width, int height, int &contactScore) const;
 
 	// return True if the free node was split.
-	bool SplitFreeNode(Rect freeNode, const Rect &usedNode);
+	bool SplitFreeRectangle(Rect freeNode, const Rect &usedNode);
 
 	// Goes through the free rectangle list and removes any redundant entries.
-	void PruneFreeList();
+	void FixFreeList();
 };
